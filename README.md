@@ -10,16 +10,14 @@ A Weather Card for Home Assistant Lovelace custom cards
 
 ## Options
 
-| Name              | Type    | Requirement  | Description                                 | Default             |
-| ----------------- | ------- | ------------ | ------------------------------------------- | ------------------- |
-| type              | string  | **Required** | `custom:weather-card`                       |
-| name              | string  | **Optional** | Card name                                   | `Boilerplate`       |
-| show_error        | boolean | **Optional** | Show what an error looks like for the card  | `false`             |
-| show_warning      | boolean | **Optional** | Show what a warning looks like for the card | `false`             |
-| entity            | string  | **Optional** | Home Assistant entity ID.                   | `none`              |
-| tap_action        | object  | **Optional** | Action to take on tap                       | `action: more-info` |
-| hold_action       | object  | **Optional** | Action to take on hold                      | `none`              |
-| double_tap_action | object  | **Optional** | Action to take on hold                      | `none`              |
+| Name              | Type   | Requirement  | Description               | Default             |
+| ----------------- | ------ | ------------ | ------------------------- | ------------------- |
+| type              | string | **Required** | `custom:weather-card`     |
+| name              | string | **Optional** | Card name                 | `Weather Card`      |
+| entity            | string | **Optional** | Home Assistant entity ID. | `none`              |
+| tap_action        | object | **Optional** | Action to take on tap     | `action: more-info` |
+| hold_action       | object | **Optional** | Action to take on hold    | `none`              |
+| double_tap_action | object | **Optional** | Action to take on hold    | `none`              |
 
 ## Action Options
 
@@ -32,30 +30,6 @@ A Weather Card for Home Assistant Lovelace custom cards
 | service_data    | object | **Optional** | Service data to include (e.g. entity_id: media_player.bedroom) when action defined as call-service                                     | `none`      |
 | haptic          | string | **Optional** | Haptic feedback for the [Beta IOS App](http://home-assistant.io/ios/beta) _success, warning, failure, light, medium, heavy, selection_ | `none`      |
 | repeat          | number | **Optional** | How often to repeat the `hold_action` in milliseconds.                                                                                 | `non`       |
-
-## Starting a new card from boilerplate-card
-
-### Step 1
-
-Clone this repository
-
-### Step 2
-
-Install necessary modules (verified to work in node 8.x)
-`yarn install` or `npm install`
-
-### Step 3
-
-Do a test lint & build on the project. You can see available scripts in the package.json
-`npm run build`
-
-### Step 4
-
-Search the repository for all instances of "TODO" and handle the changes/suggestions
-
-### Step 5
-
-Customize to suit your needs and contribute it back to the community
 
 [commits-shield]: https://img.shields.io/github/commit-activity/y/VictorWinberg/weather-card.svg?style=for-the-badge
 [commits]: https://github.com/VictorWinberg/weather-card/commits/master
