@@ -60,8 +60,11 @@ export class WeatherCard extends LitElement {
 
     return html`
       <ha-card .header=${this._config.name}>
+        <div class="state">${stateObj.state}</div>
         <div class="card-content">
-          ${stateObj.state}
+          <div class="temp">
+            ${stateObj.attributes.temperature}°C
+          </div>
         </div>
       </ha-card>
     `;
@@ -74,6 +77,23 @@ export class WeatherCard extends LitElement {
         color: black;
         background-color: #fce588;
         padding: 8px;
+      }
+      .state {
+        display: flex;
+        position: fixed;
+        z-index: 1;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20em;
+        opacity: 0.4;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      .temp {
+        font-size: 52px;
       }
     `;
   }
