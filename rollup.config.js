@@ -10,7 +10,7 @@ const dev = process.env.ROLLUP_WATCH;
 
 const serveopts = {
   contentBase: ['./dist'],
-  host: '0.0.0.0',
+  host: 'localhost',
   port: 5000,
   allowCrossOrigin: true,
   headers: {
@@ -32,7 +32,7 @@ const plugins = [
 
 export default [
   {
-    input: 'src/boilerplate-card.ts',
+    input: 'src/weather-card.ts',
     output: {
       dir: 'dist',
       format: 'es',

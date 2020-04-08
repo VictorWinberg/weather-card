@@ -5,44 +5,34 @@ import {
   hasAction,
   ActionHandlerEvent,
   handleAction,
-  LovelaceCardEditor,
   getLovelace,
 } from 'custom-card-helpers';
 
-import './editor';
-
-import { BoilerplateCardConfig } from './types';
+import { WeatherCardConfig } from './types';
 import { actionHandler } from './action-handler-directive';
 import { CARD_VERSION } from './const';
 
-import { localize } from './localize/localize';
-
 /* eslint no-console: 0 */
 console.info(
-  `%c  BOILERPLATE-CARD \n%c  ${localize('common.version')} ${CARD_VERSION}    `,
+  `%c  WEATHER-CARD \n%c  Version ${CARD_VERSION}    `,
   'color: orange; font-weight: bold; background: black',
   'color: white; font-weight: bold; background: dimgray',
 );
 
-// TODO Name your custom element
-@customElement('boilerplate-card')
-export class BoilerplateCard extends LitElement {
-  public static async getConfigElement(): Promise<LovelaceCardEditor> {
-    return document.createElement('boilerplate-card-editor') as LovelaceCardEditor;
-  }
-
+@customElement('weather-card')
+export class WeatherCard extends LitElement {
   public static getStubConfig(): object {
     return {};
   }
 
   // TODO Add any properities that should cause your element to re-render here
   @property() public hass?: HomeAssistant;
-  @property() private _config?: BoilerplateCardConfig;
+  @property() private _config?: WeatherCardConfig;
 
-  public setConfig(config: BoilerplateCardConfig): void {
+  public setConfig(config: WeatherCardConfig): void {
     // TODO Check for required fields and that they are of the proper format
     if (!config || config.show_error) {
-      throw new Error(localize('common.invalid_configuration'));
+      throw new Error('Invalid configuration');
     }
 
     if (config.test_gui) {
@@ -50,7 +40,7 @@ export class BoilerplateCard extends LitElement {
     }
 
     this._config = {
-      name: 'Boilerplate',
+      name: 'Weather Card',
       ...config,
     };
   }
@@ -68,7 +58,7 @@ export class BoilerplateCard extends LitElement {
     if (this._config.show_warning) {
       return html`
         <ha-card>
-          <div class="warning">${localize('common.show_warning')}</div>
+          <div class="warning">Show Warning</div>
         </ha-card>
       `;
     }
