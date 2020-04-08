@@ -81,6 +81,7 @@ export class WeatherCard extends LitElement {
       .state {
         display: flex;
         position: fixed;
+        pointer-events: none
         z-index: 1;
         align-items: center;
         justify-content: center;
