@@ -14,6 +14,7 @@ A Weather Card for Home Assistant Lovelace custom cards
 | ----------------- | ------ | ------------ | ------------------------- | ------------------- |
 | type              | string | **Required** | `custom:weather-card`     |
 | name              | string | **Optional** | Card name                 | `Weather Card`      |
+| title             | string | **Optional** | Title                     | `Temperature`       |
 | entity            | string | **Optional** | Home Assistant entity ID. | `none`              |
 | tap_action        | object | **Optional** | Action to take on tap     | `action: more-info` |
 | hold_action       | object | **Optional** | Action to take on hold    | `none`              |

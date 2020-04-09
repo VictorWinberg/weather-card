@@ -4,6 +4,7 @@ import { ActionConfig } from 'custom-card-helpers';
 export interface WeatherCardConfig {
   type: string;
   name?: string;
+  title?: string;
   test_gui?: boolean;
   entity: string;
   tap_action?: ActionConfig;
