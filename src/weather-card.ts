@@ -68,7 +68,7 @@ export class WeatherCard extends LitElement {
 
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      this.setCanvas(ctx, stateObj, W, H);
+      this.setCanvas(ctx, this._config.test_state || stateObj.state, W, H);
     }
 
     return html`
@@ -112,8 +112,8 @@ export class WeatherCard extends LitElement {
     `;
   }
 
-  setCanvas(ctx: CanvasRenderingContext2D, entity: HassEntity, W: number, H: number): void {
-    switch (entity.state) {
+  setCanvas(ctx: CanvasRenderingContext2D, state: string, W: number, H: number): void {
+    switch (state) {
       // case 'clear-night':
       // case 'cloudy':
       // case 'fog':
@@ -139,7 +139,7 @@ export class WeatherCard extends LitElement {
       // case 'exceptional':
 
       default:
-        this.setDefaultCanvas(ctx, entity, W, H);
+        this.setDefaultCanvas(ctx, state, W, H);
         break;
     }
   }
@@ -303,13 +303,13 @@ export class WeatherCard extends LitElement {
     return draw;
   }
 
-  setDefaultCanvas(ctx: CanvasRenderingContext2D, entity: HassEntity, W: number, H: number): () => void {
+  setDefaultCanvas(ctx: CanvasRenderingContext2D, state: string, W: number, H: number): () => void {
     function draw(): void {
       ctx.fillStyle = 'gray';
       ctx.font = '30em Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(entity.state, W / 2, H / 2);
+      ctx.fillText(state, W / 2, H / 2);
     }
 
     return draw;
