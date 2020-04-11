@@ -23,11 +23,14 @@ export class WeatherCard extends LitElement {
   @property() private _config?: WeatherCardConfig;
 
   public setConfig(config: WeatherCardConfig): void {
-    // TODO Check for required fields and that they are of the proper format
-    if (!config.entity) {
-      throw new Error('Please define a weather entity');
+    // Check for required fields and that they are of the proper format
+    if (!config.summary) {
+      throw new Error('Please define a weather summary entity');
     }
-
+    if (!config.temperature) {
+      throw new Error('Please define a weather temperature entity');
+    } 
+ 
     if (config.test_gui) {
       getLovelace().setEditMode(true);
     }
@@ -48,13 +51,15 @@ export class WeatherCard extends LitElement {
       return html``;
     }
 
-    const stateObj = this.hass.states[this._config.entity];
+    const summary = this.hass.states[this._config.summary];
+    const temperature = this.hass.states[this._config.temperature];
 
-    if (!stateObj) {
+    if (!summary || !temperature) {
+      cost unavailable = summary ? this._config.summary : this._config.temperature;
       return html`
         <ha-card>
           <div class="warning">
-            Entity not available: ${this._config.entity}
+            Entity not available: ${unavailable}
           </div>
         </ha-card>
       `;
@@ -68,7 +73,7 @@ export class WeatherCard extends LitElement {
 
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      this.setCanvas(ctx, this._config.test_state || stateObj.state, W, H);
+      this.setCanvas(ctx, this._config.test_state || summary.state, W, H);
     }
 
     return html`
@@ -79,7 +84,7 @@ export class WeatherCard extends LitElement {
             ${this._config.title}
           </div>
           <div class="temp">
-            ${stateObj.attributes.temperature}°C
+            ${temperature.state}°C
           </div>
         </div>
       </ha-card>
