@@ -55,7 +55,7 @@ export class WeatherCard extends LitElement {
     const temperature = this.hass.states[this._config.temperature];
 
     if (!summary || !temperature) {
-      cost unavailable = summary ? this._config.summary : this._config.temperature;
+      const unavailable = summary ? this._config.summary : this._config.temperature;
       return html`
         <ha-card>
           <div class="warning">
