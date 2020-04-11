@@ -3,7 +3,7 @@ import { HomeAssistant, hasConfigOrEntityChanged, getLovelace } from 'custom-car
 
 import { WeatherCardConfig } from './types';
 import { CARD_VERSION } from './const';
-import { HassEntity } from 'home-assistant-js-websocket';
+
 
 /* eslint no-console: 0 */
 console.info(
