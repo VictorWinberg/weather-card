@@ -4,7 +4,6 @@ import { HomeAssistant, hasConfigOrEntityChanged, getLovelace } from 'custom-car
 import { WeatherCardConfig } from './types';
 import { CARD_VERSION } from './const';
 
-
 /* eslint no-console: 0 */
 console.info(
   `%c  WEATHER-CARD  \n%c  Version ${CARD_VERSION} `,
@@ -29,8 +28,8 @@ export class WeatherCard extends LitElement {
     }
     if (!config.temperature) {
       throw new Error('Please define a weather temperature entity');
-    } 
- 
+    }
+
     if (config.test_gui) {
       getLovelace().setEditMode(true);
     }
