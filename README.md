@@ -10,13 +10,14 @@ A fullscreen canvas overlay Weather Card with animations for Home Assistant Love
 
 ## Options
 
-| Name       | Type   | Requirement  | Description                                   | Default        |
-| ---------- | ------ | ------------ | --------------------------------------------- | -------------- |
-| type       | string | **Required** | `custom:weather-card`                         |
-| entity     | string | **Required** | Home Assistant entity ID.                     | `none`         |
-| name       | string | **Optional** | Card name                                     | `Weather Card` |
-| title      | string | **Optional** | Title                                         | `Temperature`  |
-| test_state | string | **Optional** | Override entity state. See [states](#states). | `none`         |
+| Name        | Type   | Requirement  | Description                                   | Default        |
+| ----------- | ------ | ------------ | --------------------------------------------- | -------------- |
+| type        | string | **Required** | `custom:weather-card`                         |
+| summary     | string | **Required** | Home Assistant summary entity ID.             | `none`         |
+| temperature | string | **Required** | Home Assistant temperature entity ID.         | `none`         |
+| name        | string | **Optional** | Card name                                     | `Weather Card` |
+| title       | string | **Optional** | Title                                         | `Temperature`  |
+| test_state  | string | **Optional** | Override entity state. See [states](#states). | `none`         |
 
 ### States
 
