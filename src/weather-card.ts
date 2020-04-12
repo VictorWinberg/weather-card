@@ -1,5 +1,5 @@
-import { LitElement, html, customElement, property, CSSResult, TemplateResult, css, PropertyValues } from 'lit-element';
-import { HomeAssistant, hasConfigOrEntityChanged, getLovelace } from 'custom-card-helpers';
+import { LitElement, html, customElement, property, CSSResult, TemplateResult, css } from 'lit-element';
+import { HomeAssistant, getLovelace } from 'custom-card-helpers';
 
 import { WeatherCardConfig } from './types';
 import { CARD_VERSION } from './const';
@@ -39,10 +39,6 @@ export class WeatherCard extends LitElement {
       title: 'Temperature',
       ...config,
     };
-  }
-
-  protected shouldUpdate(changedProps: PropertyValues): boolean {
-    return hasConfigOrEntityChanged(this, changedProps, false);
   }
 
   protected render(): TemplateResult | void {
