@@ -1,7 +1,7 @@
 {
-  "name": "weather-card",
-  "version": "0.3.0",
-  "description": "Weather Card for Home Assistant",
+  "name": "weather-overlay-card",
+  "version": "0.4.0",
+  "description": "Weather Overlay Card for Home Assistant",
   "keywords": [
     "home-assistant",
     "homeassistant",
@@ -10,9 +10,9 @@
     "lovelace",
     "custom-cards"
   ],
-  "main": "weather-card.js",
-  "module": "weather-card.js",
-  "repository": "git@github.com:VictorWinberg/weather-card.git",
+  "main": "weather-overlay-card.js",
+  "module": "weather-overlay-card.js",
+  "repository": "git@github.com:VictorWinberg/weather-overlay-card.git",
   "author": "Victor Winberg <victor95w@gmail.com>",
   "license": "MIT",
   "dependencies": {

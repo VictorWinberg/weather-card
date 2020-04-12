@@ -14,7 +14,7 @@ jobs:
       # Build
       - name: Build the file
         run: |
-          cd /home/runner/work/weather-card/weather-card
+          cd /home/runner/work/weather-overlay-card/weather-overlay-card
           npm install
           npm run build
 
@@ -24,7 +24,7 @@ jobs:
 
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: /home/runner/work/weather-card/weather-card/dist/weather-card.js
-          asset_name: weather-card.js
+          file: /home/runner/work/weather-overlay-card/weather-overlay-card/dist/weather-overlay-card.js
+          asset_name: weather-overlay-card.js
           tag: ${{ github.ref }}
           overwrite: true

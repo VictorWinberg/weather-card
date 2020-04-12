@@ -32,7 +32,7 @@ const plugins = [
 
 export default [
   {
-    input: 'src/weather-card.ts',
+    input: 'src/weather-overlay-card.ts',
     output: {
       dir: 'dist',
       format: 'es',

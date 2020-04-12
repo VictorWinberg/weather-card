@@ -1,9 +1,6 @@
-export interface WeatherCardConfig {
+export interface WeatherOverlayCardConfig {
   type: string;
-  name?: string;
-  title?: string;
-  summary: string;
-  temperature: string;
+  entity: string;
   test_state?: string;
   test_gui?: boolean;
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Weather Card",
+  "name": "Weather Overlay Card",
   "render_readme": true,
-  "filename": "weather-card.js"
+  "filename": "weather-overlay-card.js"
 }

@@ -1,44 +1,37 @@
 import { LitElement, html, customElement, property, CSSResult, TemplateResult, css } from 'lit-element';
 import { HomeAssistant, getLovelace } from 'custom-card-helpers';
 
-import { WeatherCardConfig } from './types';
+import { WeatherOverlayCardConfig } from './types';
 import { CARD_VERSION } from './const';
 
 /* eslint no-console: 0 */
 console.info(
-  `%c  WEATHER-CARD  \n%c  Version ${CARD_VERSION} `,
+  `%c  WEATHER-OVERLAY-CARD  \n%c  Version ${CARD_VERSION} `,
   'color: orange; font-weight: bold; background: black',
   'color: white; font-weight: bold; background: dimgray',
 );
 
-@customElement('weather-card')
-export class WeatherCard extends LitElement {
+@customElement('weather-overlay-card')
+export class WeatherOverlayCard extends LitElement {
   public static getStubConfig(): object {
     return {};
   }
 
   // TODO Add any properities that should cause your element to re-render here
   @property() public hass?: HomeAssistant;
-  @property() private _config?: WeatherCardConfig;
+  @property() private _config?: WeatherOverlayCardConfig;
 
-  public setConfig(config: WeatherCardConfig): void {
+  public setConfig(config: WeatherOverlayCardConfig): void {
     // Check for required fields and that they are of the proper format
-    if (!config.summary) {
-      throw new Error('Please define a weather summary entity');
-    }
-    if (!config.temperature) {
-      throw new Error('Please define a weather temperature entity');
+    if (!config.entity) {
+      throw new Error('Please define a weather overlay entity');
     }
 
     if (config.test_gui) {
       getLovelace().setEditMode(true);
     }
 
-    this._config = {
-      name: 'Weather Card',
-      title: 'Temperature',
-      ...config,
-    };
+    this._config = { ...config };
   }
 
   protected render(): TemplateResult | void {
@@ -46,15 +39,13 @@ export class WeatherCard extends LitElement {
       return html``;
     }
 
-    const summary = this.hass.states[this._config.summary];
-    const temperature = this.hass.states[this._config.temperature];
+    const stateObj = this.hass.states[this._config.entity];
 
-    if (!summary || !temperature) {
-      const unavailable = summary ? this._config.summary : this._config.temperature;
+    if (!stateObj) {
       return html`
         <ha-card>
-          <div class="warning">
-            Entity not available: ${unavailable}
+          <div class="canvas warning">
+            Entity not available: ${this._config.entity}
           </div>
         </ha-card>
       `;
@@ -68,19 +59,13 @@ export class WeatherCard extends LitElement {
 
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      this.setCanvas(ctx, this._config.test_state || summary.state, W, H);
+      this.setCanvas(ctx, this._config.test_state || stateObj.state, W, H);
     }
 
     return html`
-      <ha-card .header=${this._config.name}>
-        ${canvas}
-        <div class="card-content">
-          <div class="title">
-            ${this._config.title}
-          </div>
-          <div class="temp">
-            ${temperature.state}°C
-          </div>
+      <ha-card>
+        <div class="canvas">
+          ${canvas}
         </div>
       </ha-card>
     `;
@@ -88,19 +73,20 @@ export class WeatherCard extends LitElement {
 
   static get styles(): CSSResult {
     return css`
-      .warning {
-        display: block;
+      .canvas.warning {
+        font-size: 2em;
         color: black;
         background-color: #fce588;
-        padding: 8px;
+        opacity: 0.8;
       }
-      canvas {
+      .canvas {
         display: flex;
         position: fixed;
         pointer-events: none;
         z-index: 1;
         align-items: center;
         justify-content: center;
+        text-align: center;
         color: white;
         font-size: 20em;
         opacity: 0.4;
@@ -139,12 +125,13 @@ export class WeatherCard extends LitElement {
       // case 'exceptional':
 
       default:
-        this.setDefaultCanvas(ctx, state, W, H);
+        this.drawInterval(ctx, W, H, 1000, [this.setDefaultCanvas(ctx, state, W, H)]);
         break;
     }
   }
 
   drawInterval(ctx: CanvasRenderingContext2D, W: number, H: number, ms: number, draws: (() => void)[]): void {
+    // TODO: Clear previous intervals?
     setInterval(() => {
       ctx.clearRect(0, 0, W, H);
       draws.forEach(draw => draw());
@@ -306,7 +293,7 @@ export class WeatherCard extends LitElement {
   setDefaultCanvas(ctx: CanvasRenderingContext2D, state: string, W: number, H: number): () => void {
     function draw(): void {
       ctx.fillStyle = 'gray';
-      ctx.font = '30em Arial';
+      ctx.font = '1em Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(state, W / 2, H / 2);

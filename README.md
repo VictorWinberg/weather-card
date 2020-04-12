@@ -1,4 +1,4 @@
-# Weather Card by [@VictorWinberg](https://www.github.com/VictorWinberg)
+# Weather Overlay Card by [@VictorWinberg](https://www.github.com/VictorWinberg)
 
 A fullscreen canvas overlay Weather Card with animations for Home Assistant Lovelace
 
@@ -10,14 +10,11 @@ A fullscreen canvas overlay Weather Card with animations for Home Assistant Love
 
 ## Options
 
-| Name        | Type   | Requirement  | Description                                   | Default        |
-| ----------- | ------ | ------------ | --------------------------------------------- | -------------- |
-| type        | string | **Required** | `custom:weather-card`                         |
-| summary     | string | **Required** | Home Assistant summary entity ID.             | `none`         |
-| temperature | string | **Required** | Home Assistant temperature entity ID.         | `none`         |
-| name        | string | **Optional** | Card name                                     | `Weather Card` |
-| title       | string | **Optional** | Title                                         | `Temperature`  |
-| test_state  | string | **Optional** | Override entity state. See [states](#states). | `none`         |
+| Name       | Type   | Requirement  | Description                                   | Default |
+| ---------- | ------ | ------------ | --------------------------------------------- | ------- |
+| type       | string | **Required** | `custom:weather-overlay-card`                 |
+| entity     | string | **Required** | Home Assistant entity ID.                     | `none`  |
+| test_state | string | **Optional** | Override entity state. See [states](#states). | `none`  |
 
 ### States
 
@@ -46,10 +43,11 @@ Hence, grouped by **implemented** and **to do**:
 - `exceptional`
 
 ### Examples of overlays
+
 <img src="https://user-images.githubusercontent.com/9520959/78915118-bdb4b180-7a8b-11ea-98a7-6591ca51f609.gif" height="200"/><img src="https://user-images.githubusercontent.com/9520959/78915123-bee5de80-7a8b-11ea-82e7-3fd41ff44f5b.gif" height="200"/>
 
-[commits-shield]: https://img.shields.io/github/commit-activity/y/VictorWinberg/weather-card.svg?style=for-the-badge
-[commits]: https://github.com/VictorWinberg/weather-card/commits/master
-[license-shield]: https://img.shields.io/github/license/VictorWinberg/weather-card.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/VictorWinberg/weather-card.svg?style=for-the-badge
-[releases]: https://github.com/VictorWinberg/weather-card/releases
+[commits-shield]: https://img.shields.io/github/commit-activity/y/VictorWinberg/weather-overlay-card.svg?style=for-the-badge
+[commits]: https://github.com/VictorWinberg/weather-overlay-card/commits/master
+[license-shield]: https://img.shields.io/github/license/VictorWinberg/weather-overlay-card.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/VictorWinberg/weather-overlay-card.svg?style=for-the-badge
+[releases]: https://github.com/VictorWinberg/weather-overlay-card/releases
