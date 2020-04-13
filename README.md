@@ -5,7 +5,7 @@ A fullscreen canvas overlay Weather Card with animations for Home Assistant Love
 [![GitHub Release][releases-shield]][releases]
 [![GitHub Activity][commits-shield]][commits]
 
-[![License][license-shield]](LICENSE.md)
+[![License][license-shield]](LICENSE)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
 
 ## Options
