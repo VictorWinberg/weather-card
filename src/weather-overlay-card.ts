@@ -1,5 +1,5 @@
-import { LitElement, html, customElement, property, CSSResult, TemplateResult, css } from 'lit-element';
-import { HomeAssistant, getLovelace } from 'custom-card-helpers';
+import { LitElement, html, customElement, property, CSSResult, TemplateResult, css, PropertyValues } from 'lit-element';
+import { HomeAssistant, hasConfigOrEntityChanged, getLovelace } from 'custom-card-helpers';
 
 import { WeatherOverlayCardConfig } from './types';
 import { CARD_VERSION } from './const';
@@ -17,9 +17,10 @@ export class WeatherOverlayCard extends LitElement {
     return {};
   }
 
-  // TODO Add any properities that should cause your element to re-render here
+  // Add any properities that should cause your element to re-render here
   @property() public hass?: HomeAssistant;
   @property() private _config?: WeatherOverlayCardConfig;
+  private interval: NodeJS.Timeout | undefined;
 
   public setConfig(config: WeatherOverlayCardConfig): void {
     // Check for required fields and that they are of the proper format
@@ -32,6 +33,10 @@ export class WeatherOverlayCard extends LitElement {
     }
 
     this._config = { ...config };
+  }
+
+  protected shouldUpdate(changedProps: PropertyValues): boolean {
+    return hasConfigOrEntityChanged(this, changedProps, false);
   }
 
   protected render(): TemplateResult | void {
@@ -131,8 +136,11 @@ export class WeatherOverlayCard extends LitElement {
   }
 
   drawInterval(ctx: CanvasRenderingContext2D, W: number, H: number, ms: number, draws: (() => void)[]): void {
-    // TODO: Clear previous intervals?
-    setInterval(() => {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+
+    this.interval = setInterval(() => {
       ctx.clearRect(0, 0, W, H);
       draws.forEach(draw => draw());
     }, ms);
