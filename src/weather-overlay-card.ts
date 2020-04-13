@@ -123,7 +123,7 @@ export class WeatherOverlayCard extends LitElement {
         this.drawInterval(ctx, W, H, 33, [this.setRainyCanvas(ctx, W, H), this.setSnowyCanvas(ctx, W, H)]);
         break;
       case 'sunny':
-        this.drawInterval(ctx, W, H, 100, [this.setSunnyCanvas(ctx, W, H)]);
+        this.drawInterval(ctx, W, H, 33, [this.setSunnyCanvas(ctx, W, H)]);
         break;
       // case 'windy':
       // case 'windy-variant':
@@ -232,7 +232,7 @@ export class WeatherOverlayCard extends LitElement {
 
   setSunnyCanvas(ctx: CanvasRenderingContext2D, W: number, H: number): () => void {
     let offset = H / 2;
-    let direction = 4;
+    let direction = 0.5;
 
     function draw(): void {
       const grd = ctx.createRadialGradient(W / 2, 0, H / 2 - 200, W / 2, 0, offset);
@@ -241,7 +241,7 @@ export class WeatherOverlayCard extends LitElement {
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, W, H);
       offset += direction;
-      if (offset < H / 2 - 100 || offset > H / 2 + 100) {
+      if (offset < H / 2 - 50 || offset > H / 2 + 50) {
         direction *= -1;
         offset += direction;
       }
