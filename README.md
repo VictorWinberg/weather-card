@@ -27,16 +27,16 @@ Hence, grouped by **implemented** and **to do**:
 - `snowy`
 - `snowy-rainy`
 - `sunny`
+- `cloudy`
+- `partlycloudy`
 
 **To Do**
 
 - `clear-night`
-- `cloudy`
 - `fog`
 - `hail`
 - `lightning`
 - `lightning-rainy`
-- `partlycloudy`
 - `pouring`
 - `windy`
 - `windy-variant`

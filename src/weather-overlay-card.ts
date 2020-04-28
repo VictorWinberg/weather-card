@@ -106,12 +106,16 @@ export class WeatherOverlayCard extends LitElement {
   setCanvas(ctx: CanvasRenderingContext2D, state: string, W: number, H: number): void {
     switch (state) {
       // case 'clear-night':
-      // case 'cloudy':
+      case 'cloudy':
+        this.drawInterval(ctx, W, H, 33, [this.setCloudyCanvas(ctx, W, H)]);
+        break;
       // case 'fog':
       // case 'hail':
       // case 'lightning':
       // case 'lightning-rainy':
-      // case 'partlycloudy':
+      case 'partlycloudy':
+        this.drawInterval(ctx, W, H, 33, [this.setCloudyCanvas(ctx, W, H), this.setSunnyCanvas(ctx, W, H)]);
+        break;
       // case 'pouring':
       case 'rainy':
         this.drawInterval(ctx, W, H, 33, [this.setRainyCanvas(ctx, W, H)]);
@@ -239,6 +243,7 @@ export class WeatherOverlayCard extends LitElement {
       grd.addColorStop(0, 'rgba(255,255,0,0.8)');
       grd.addColorStop(1, 'rgba(255,165,0,0.1)');
       ctx.fillStyle = grd;
+      ctx.globalAlpha = 1;
       ctx.fillRect(0, 0, W, H);
       offset += direction;
       if (offset < H / 2 - 50 || offset > H / 2 + 50) {
@@ -251,25 +256,16 @@ export class WeatherOverlayCard extends LitElement {
   }
 
   setRainyCanvas(ctx: CanvasRenderingContext2D, W: number, H: number): () => void {
-    ctx.strokeStyle = 'rgba(96,144,216,0.7)';
-    ctx.lineWidth = 3;
-    ctx.lineCap = 'round';
-
-    const init: { x: number; y: number; l: number; xs: number; ys: number }[] = [];
+    const particles: { x: number; y: number; l: number; xs: number; ys: number }[] = [];
     const maxParts = 200;
     for (let a = 0; a < maxParts; a++) {
-      init.push({
+      particles.push({
         x: Math.random() * W,
         y: Math.random() * H,
         l: Math.random() * 1,
         xs: -1 + Math.random() * 4 + 2,
         ys: Math.random() * 10 + 10,
       });
-    }
-
-    const particles: { x: number; y: number; l: number; xs: number; ys: number }[] = [];
-    for (let b = 0; b < maxParts; b++) {
-      particles[b] = init[b];
     }
 
     function move(): void {
@@ -287,11 +283,64 @@ export class WeatherOverlayCard extends LitElement {
     function draw(): void {
       for (let c = 0; c < particles.length; c++) {
         const p = particles[c];
+        ctx.strokeStyle = 'rgba(96,144,216,0.7)';
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.globalAlpha = 1;
         ctx.beginPath();
         ctx.moveTo(p.x, p.y);
         ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
         ctx.stroke();
+        ctx.closePath();
       }
+      move();
+    }
+
+    return draw;
+  }
+
+  setCloudyCanvas(ctx: CanvasRenderingContext2D, W: number, H: number): () => void {
+    const particles: { x: number; y: number; r: number; xs: number; ys: number }[] = [];
+    const maxParts = 50;
+    const cloudLength = 50;
+
+    for (let a = 0; a < maxParts; a++) {
+      particles.push({
+        x: Math.random() * 2 * W,
+        y: Math.random() * H,
+        r: 150,
+        xs: Math.random() * 6 + 3,
+        ys: Math.random() * 2 - 1,
+      });
+    }
+
+    function move(): void {
+      for (let b = 0; b < particles.length; b++) {
+        const p = particles[b];
+        p.x += p.xs;
+        p.y += p.ys;
+        if (p.x > 2 * W) {
+          p.x = -W;
+          p.y = Math.random() * H;
+          p.xs = Math.random() * 6 + 3;
+          p.ys = Math.random() * 2 - 1;
+        }
+      }
+    }
+
+    function draw(): void {
+      for (let c = 0; c < particles.length; c++) {
+        const p = particles[c];
+        ctx.fillStyle = 'silver';
+        for (let i = 0; i < cloudLength; i++) {
+          ctx.globalAlpha = (1 - Math.abs(i / cloudLength - 0.5)) / 10;
+          ctx.beginPath();
+          ctx.arc(p.x + p.xs * i, p.y + p.ys * i, p.r, 0, 2 * Math.PI);
+          ctx.fill();
+          ctx.closePath();
+        }
+      }
+
       move();
     }
 
@@ -300,6 +349,7 @@ export class WeatherOverlayCard extends LitElement {
 
   setDefaultCanvas(ctx: CanvasRenderingContext2D, state: string, W: number, H: number): () => void {
     function draw(): void {
+      ctx.globalAlpha = 1;
       ctx.fillStyle = 'gray';
       ctx.font = '1em Arial';
       ctx.textAlign = 'center';
