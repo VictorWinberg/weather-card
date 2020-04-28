@@ -236,7 +236,7 @@ export class WeatherOverlayCard extends LitElement {
 
   setSunnyCanvas(ctx: CanvasRenderingContext2D, W: number, H: number): () => void {
     let offset = H / 2;
-    let direction = 0.5;
+    let direction = 1;
 
     function draw(): void {
       const grd = ctx.createRadialGradient(W / 2, 0, H / 2 - 200, W / 2, 0, offset);
@@ -306,11 +306,11 @@ export class WeatherOverlayCard extends LitElement {
 
     for (let a = 0; a < maxParts; a++) {
       particles.push({
-        x: Math.random() * 2 * W,
+        x: Math.random() * W,
         y: Math.random() * H,
         r: 150,
-        xs: Math.random() * 6 + 3,
-        ys: Math.random() * 2 - 1,
+        xs: Math.random() * 10 + 5,
+        ys: Math.random() * 4 - 2,
       });
     }
 
@@ -322,8 +322,6 @@ export class WeatherOverlayCard extends LitElement {
         if (p.x > 2 * W) {
           p.x = -W;
           p.y = Math.random() * H;
-          p.xs = Math.random() * 6 + 3;
-          p.ys = Math.random() * 2 - 1;
         }
       }
     }
@@ -333,8 +331,9 @@ export class WeatherOverlayCard extends LitElement {
         const p = particles[c];
         ctx.fillStyle = 'silver';
         for (let i = 0; i < cloudLength; i++) {
-          ctx.globalAlpha = (1 - Math.abs(i / cloudLength - 0.5)) / 10;
           ctx.beginPath();
+          ctx.globalAlpha = (1 - Math.abs(i / cloudLength - 0.5)) / 150;
+
           ctx.arc(p.x + p.xs * i, p.y + p.ys * i, p.r, 0, 2 * Math.PI);
           ctx.fill();
           ctx.closePath();
